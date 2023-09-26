@@ -1,18 +1,17 @@
 package com.littera.ticketsapi.tickets.model;
 
+import com.littera.ticketsapi.orders.model.Orders;
 import com.littera.ticketsapi.tickets.dto.TicketsRequestDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Date;
 
 @Table(name = "tickets")
 @Entity(name = "tickets")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -20,17 +19,13 @@ public class Tickets {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
     @NotBlank
     private String title;
     private String image;
-    @NotBlank
     private Float price;
-    @NotBlank
     private Date eventDate;
-    @NotBlank
     private Date addDate;
-    @NotBlank
     private Date sellingDate;
 
     public Tickets(TicketsRequestDTO data){

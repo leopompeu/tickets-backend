@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/api/auth")
 public class AuthenticationController {
 
     @Autowired
@@ -34,17 +34,13 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
-        if(data.isEnabled() && data.isNonExpired() && data.isNonLocked()){
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
             var auth = this.authenticationManager.authenticate(usernamePassword);
 
             var token = tokenService.generateToken((Users) auth.getPrincipal());
 
             return ResponseEntity.ok(new LoginResponseDTO(token));
-        }
-        else {
-            return ResponseEntity.badRequest().build();
-        }
+
     }
 
     @PostMapping("/registerUser")
